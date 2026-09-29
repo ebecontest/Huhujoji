@@ -26,9 +26,15 @@ ADDRESS = "Empayar Batik Eksklusif HQ, Lot 811, Kampong Badang, 15350 Kota Bharu
 MAPS = "https://maps.app.goo.gl/1e1bDQJQm6b8pzWu6"
 INSTAGRAM = ("https://www.instagram.com/empayarbatikofficial", "@empayarbatikofficial")
 TIKTOK = ("https://www.tiktok.com/@empayarbatikexclusive", "@empayarbatikexclusive")
+LINKTREE = ("https://linktr.ee/empayarbatikexclusive", "linktr.ee/empayarbatikexclusive")
 SHOPEE = ("https://shopee.com/empayarbatikexclusive", "@empayarbatikexclusive")
 
 e = html.escape
+
+
+def vid_group(*cands, label="Watch the Collection", caption=None):
+    """A video block. Several candidate file names may be given; the browser uses the first that exists."""
+    return dict(label=label, video=list(cands), caption=caption)
 
 
 def img(path):
@@ -106,7 +112,8 @@ PAGES["kaftan"] = dict(
             items=[],
             groups=[dict(label="Pastel Series Caftans", alt="Pastel series batik caftan",
                          images=["img kaftan/pastel.jpg", "img kaftan/pastel 1.jpg", "img kaftan/pastel 2.jpg", "img kaftan/pastel 3.jpg"],
-                         caption="Our pastel series caftans offer soft, delicate tones perfect for casual or formal occasions.")],
+                         caption="Our pastel series caftans offer soft, delicate tones perfect for casual or formal occasions."),
+                    vid_group("img kaftan/vid kaftan.mp4", "img kaftan/vid lukis.mp4", "img kaftan/vid pastel.mp4", "img kaftan/vid caftan.mp4")],
         ),
     ],
 )
@@ -132,7 +139,8 @@ PAGES["jubah"] = dict(
             groups=[dict(label="Jubah Dress Collection", alt="Hand-drawn batik jubah dress",
                          images=["img jubah/jubah %d.jpg" % i for i in range(1, 7)],
                          caption="Exclusive hand-drawn Jubah dress collection, crafted from premium Cotton Viscose for comfort and elegance. "
-                                 "Designed to fit up to XXL, each piece is uniquely made for breathable wear and easy care.")],
+                                 "Designed to fit up to XXL, each piece is uniquely made for breathable wear and easy care."),
+                    vid_group("img jubah/vid jubah.mp4", "img jubah/vid batwing.mp4")],
         ),
     ],
 )
@@ -151,7 +159,8 @@ PAGES["blouse"] = dict(
             groups=[dict(label="Butterfly Blouse", alt="Hand-drawn batik butterfly blouse",
                          images=["img blouse/blouse 1.jpg", "img blouse/blouse 2.jpg", "img blouse/blouse 3.jpg"],
                          caption="Crafted from premium Cotton Viscose, it offers breathable comfort and easy care. "
-                                 "Designed to fit up to XXL with a unique pattern on every piece.")],
+                                 "Designed to fit up to XXL with a unique pattern on every piece."),
+                    vid_group("img blouse/vid blouse.mp4")],
         ),
     ],
 )
@@ -174,6 +183,7 @@ PAGES["baju-kurung"] = dict(
                 dict(label="Size Chart & Detail", alt="Baju kurung size chart and detail", charts=True,
                      images=["img baju kurung/chart.PNG", "img baju kurung/detail kurung.jpg"],
                      caption="Available in sizes XS to XXL, each piece is a unique masterpiece, combining traditional charm with modern elegance."),
+                vid_group("img baju kurung/vid kurung.mp4"),
             ],
         ),
         dict(
@@ -190,6 +200,7 @@ PAGES["baju-kurung"] = dict(
                 dict(label="Size Chart", alt="Kurung Jasmin size chart", charts=True, one=True,
                      images=["img baju kurung/chart 2.jpg"],
                      caption="Back darts provide a tailored fit, making it both elegant and flattering. Each piece is exclusively hand-drawn, ensuring a unique design."),
+                vid_group("img baju kurung/vid jasmin.mp4"),
             ],
         ),
     ],
@@ -222,6 +233,7 @@ PAGES["short-sleeve"] = dict(
                 dict(label="Size Chart & Detail", alt="Men shirt size chart and detail", charts=True,
                      images=["img short sleeve/chart.png", "img short sleeve/detail kemeja.jpg"],
                      caption="Available in sizes S to 3XL, it’s easy to iron and resistant to shrinking, offering both style and practicality."),
+                vid_group("img short sleeve/vid kemeja.mp4", "img short sleeve/vid galaxy.mp4", "img short sleeve/vid short sleeve.mp4"),
             ],
         ),
     ],
@@ -272,6 +284,7 @@ PAGES["cotton"] = dict(
             title="Cotton Viscose 4 Meter Batik",
             items=[COTTON_NO1, COOL, NOSHRINK_IRON, "Each cotton exclusively hand drawn; One Design, One Piece"],
             groups=[
+                vid_group("img cotton/vid cotton.mp4", "img cotton/vid stamped.mp4"),
                 dict(label="Handdrawn Cotton Batik", alt="Hand-drawn cotton viscose batik fabric",
                      images=["img cotton/cotton %d.jpg" % i for i in (1, 2, 3)],
                      caption="Made from the finest Cotton Viscose, this fabric does not shrink when washed and is easy to iron."),
@@ -294,6 +307,7 @@ PAGES["crepe"] = dict(
             items=["Silk crepe material for elegance and comfort", "Very exclusive designs suitable for special occasions", COOL,
                    NOSHRINK_IRON, "Each cotton exclusively hand drawn; One Design, One Piece"],
             groups=[
+                vid_group("img crepe/vid crepe.mp4", "img crepe/1 layer/vid crepe.mp4"),
                 dict(label="One-layer Silk Crepe", alt="One-layer silk crepe batik fabric",
                      images=["img crepe/1 layer/crepe.jpg"] + ["img crepe/1 layer/crepe %d.jpg" % i for i in (1, 2, 3)],
                      caption="The fabric is easy to maintain, as it doesn't shrink when washed and is easy to iron."),
@@ -348,7 +362,8 @@ def header_html(active):
 </div></div>
 <header class="header"><div class="wrap">
   <a class="brand" href="index.html" aria-label="{BRAND} — home">
-    <img src="{img('logo-ebe/header photo.png')}" alt="{BRAND} logo" height="56" data-fb>
+    <img class="b-icon" src="{img('logo-ebe/iconebe.PNG')}" alt="" height="52">
+    <img class="b-word" src="{img('logo-ebe/wordebe.PNG')}" alt="{BRAND}" height="30">
     <span class="wordmark">{BRAND}</span>
   </a>
   <nav aria-label="Primary"><ul class="nav">{"".join(lis)}</ul></nav>
@@ -371,6 +386,7 @@ def footer_html():
     return f'''<footer class="footer">
   <div class="wrap footer-top">
     <div>
+      <div class="f-banner"><img src="{img('logo-ebe/header photo.png')}" alt="{BRAND}" loading="lazy" data-fb></div>
       <div class="wm">Empayar Batik<br>Exclusive<small>Kota Bharu · Kelantan · Malaysia</small></div>
       <p>Authentic hand-drawn Malay heritage batik — proudly representing Malaysia's culture, locally and around the world.</p>
       <div class="soc">
@@ -378,6 +394,7 @@ def footer_html():
         <a href="{TIKTOK[0]}" target="_blank" rel="noopener" aria-label="TikTok {TIKTOK[1]}">{I_TT}</a>
         <a href="{SHOPEE[0]}" target="_blank" rel="noopener" aria-label="Shopee {SHOPEE[1]}">{I_SHOP}</a>
       </div>
+      <a class="shop-here" href="{LINKTREE[0]}" target="_blank" rel="noopener"><i></i>Shop here <span>{LINKTREE[1]}</span></a>
     </div>
     <div>
       <h5>Women</h5><ul>{col("Women")}</ul>
@@ -420,7 +437,8 @@ def page(filename, title, desc, body, active, og_image=None, extra_head="", body
 <meta name="description" content="{e(desc)}">
 <meta name="theme-color" content="#15110e">
 <link rel="canonical" href="{url}">
-<link rel="icon" href="{img('logo-ebe/header photo.png')}">
+<link rel="icon" href="{img('logo-ebe/iconebe.PNG')}">
+<link rel="apple-touch-icon" href="{img('logo-ebe/iconebe.PNG')}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{BRAND}">
 <meta property="og:title" content="{e(full_title)}">
@@ -673,7 +691,17 @@ def build_products():
                 body, "products.html")
 
 
+def video_html(group):
+    cands = "|".join(img(c) for c in group["video"])
+    cap = '<p class="caption">%s</p>' % e(group["caption"]) if group.get("caption") else ""
+    return ('<div class="reveal vid-wrap"><div class="group-label">%s</div>'
+            '<figure class="vid"><video controls playsinline preload="metadata" data-cands="%s">'
+            'Your browser does not support the video tag.</video></figure>%s</div>') % (e(group["label"]), cands, cap)
+
+
 def gallery_html(group, lb_id):
+    if group.get("video"):
+        return video_html(group)
     imgs = group["images"]
     cls = "gallery"
     if group.get("charts"):
@@ -691,7 +719,7 @@ def gallery_html(group, lb_id):
 
 def build_product(key):
     c, p = COLLECTIONS[key], PAGES[key]
-    first_img = p["series"][0]["groups"][0]["images"][0]
+    first_img = next(g["images"][0] for g in p["series"][0]["groups"] if g.get("images"))
     facts = "".join('<span class="fact">%s</span>' % e(f) for f in p["facts"])
 
     series_html = ""
@@ -772,7 +800,7 @@ def build_contact():
     ])
     opts = "".join('<option value="%s">%s</option>' % (e(c["name"]), e(c["name"])) for c in COLLECTIONS.values())
     body = f'''
-<section class="page-hero"><div class="wrap">
+<section class="page-hero has-bg" style="--bg:url('{img('img contact/contact.png')}')"><div class="wrap">
   <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Contact Us</span></nav>
   <span class="eyebrow">Contact Us</span>
   <h1>Let’s talk <em class="gold">batik.</em></h1>

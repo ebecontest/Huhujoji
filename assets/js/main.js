@@ -44,13 +44,27 @@
     if (img.complete && img.naturalWidth === 0) markBroken(img);
     img.addEventListener('error', function () { markBroken(img); });
   });
-  // Logo: fall back to a typographic wordmark
-  var logo = $('.brand img');
-  if (logo) {
-    var noLogo = function () { logo.parentNode.classList.add('no-logo'); };
-    if (logo.complete && logo.naturalWidth === 0) noLogo();
-    logo.addEventListener('error', noLogo);
+  // Brand logos: hide a missing icon, fall back to a typographic wordmark
+  var brand = $('.brand');
+  if (brand) {
+    var bi = $('.b-icon', brand), bw = $('.b-word', brand);
+    var hideIcon = function () { bi.style.display = 'none'; };
+    var noWord = function () { brand.classList.add('no-word'); };
+    if (bi) { if (bi.complete && bi.naturalWidth === 0) hideIcon(); bi.addEventListener('error', hideIcon); }
+    if (bw) { if (bw.complete && bw.naturalWidth === 0) noWord(); bw.addEventListener('error', noWord); }
   }
+
+  /* ----- Videos: try each candidate file name, hide the block if none exist ----- */
+  $$('video[data-cands]').forEach(function (v) {
+    var list = v.getAttribute('data-cands').split('|'), i = 0;
+    var wrap = v.closest('.vid-wrap');
+    var next = function () {
+      if (i >= list.length) { if (wrap) wrap.hidden = true; return; }
+      v.src = list[i++];
+    };
+    v.addEventListener('error', next);
+    next();
+  });
 
   /* ----- Reveal on scroll ----- */
   var reveals = $$('.reveal');
