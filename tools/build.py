@@ -357,7 +357,7 @@ def header_html(active):
     return f'''<a class="skip" href="#main">Skip to content</a>
 <div class="progress" aria-hidden="true"></div>
 <div class="topbar"><div class="wrap">
-  <div class="tb-msg"><i></i><span>Authentic Kelantan Batik · Hand-drawn · One Design, One Piece</span></div>
+  <div class="tb-msg"><i></i><span>Authentic Kelantan Batik · Hand-drawn<span class="tb-more"> · One Design, One Piece</span></span></div>
   <div class="tb-links"><a href="tel:+601156774731">{WA_HQ[2]}</a><a href="mailto:{EMAIL}">{EMAIL}</a></div>
 </div></div>
 <header class="header"><div class="wrap">
@@ -367,7 +367,7 @@ def header_html(active):
     <span class="wordmark">{BRAND}</span>
   </a>
   <nav aria-label="Primary"><ul class="nav">{"".join(lis)}</ul></nav>
-  <a class="btn cta" href="{WA_HQ[0]}" target="_blank" rel="noopener">Enquire {ARROW}</a>
+  <a class="btn btn--gold cta" href="{WA_HQ[0]}" target="_blank" rel="noopener">Enquire {ARROW}</a>
   <button class="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </div></header>
 <div class="drawer" aria-label="Mobile menu">
@@ -523,7 +523,7 @@ def build_index():
   <div class="hero-slides">{slides}</div>
   <div class="hero-inner">
     <span class="eyebrow">Authentic Malay Heritage Batik · Kelantan</span>
-    <h1 class="h-display">Batik, <em>hand-drawn</em> for the modern woman.</h1>
+    <h1 class="h-display">Batik, <em style="white-space:nowrap">hand-drawn</em> for the modern woman.</h1>
     <p>“{TAGLINE}.”</p>
     <div class="hero-actions">
       <a class="btn btn--gold" href="products.html">Explore Collections {ARROW}</a>
@@ -533,7 +533,7 @@ def build_index():
   <div class="hero-meta"><div class="wrap">
     <span class="scroll-cue"><i></i>Scroll</span>
     <div class="hero-dots" role="group" aria-label="Hero images">{dots}</div>
-    <span>One Design · One Piece</span>
+    <span aria-hidden="true"></span>
   </div></div>
 </section>
 
@@ -708,6 +708,8 @@ def gallery_html(group, lb_id):
         cls += " charts"
     if group.get("one") or len(imgs) == 1:
         cls += " one"
+    elif len(imgs) % 2 == 1:
+        cls += " odd"
     a = ""
     for i, p in enumerate(imgs, 1):
         alt = "%s — %d" % (group["alt"], i) if len(imgs) > 1 else group["alt"]
